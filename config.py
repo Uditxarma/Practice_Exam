@@ -1,0 +1,1 @@
+allowed_extension = ['jpg','mp3','jpeg','pdf']
