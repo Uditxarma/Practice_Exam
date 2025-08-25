@@ -187,7 +187,21 @@ print(range_sum(prefix, 0, 4))  # Output: 30
 #Preprocessing: O(n)
 #Query: O(1)
 
-#Subarray Sum equals Target
+#Subarray Sum equals Target(We can use prefix sum + hashmap.)
+def subarray_sum(arr, target):
+    prefix_sum = 0
+    seen = {0: -1}  # to handle case when subarray starts at index 0
+
+    for i, num in enumerate(arr):
+        prefix_sum += num
+        if prefix_sum - target in seen:
+            return (seen[prefix_sum - target] + 1, i)  # subarray indices
+        seen[prefix_sum] = i
+    return None
+
+print(subarray_sum([1,2,3,4,5], 9))
+print("______________________________________")
+# Output: (1, 3)  --> subarray [2,3,4]
 
 '''
 Lesson 5: Sliding Window
@@ -195,3 +209,31 @@ When do we use Sliding Window?
 When problem asks about subarrays of fixed or variable length.
 Instead of recomputing sum/product/count each time → reuse results.
 '''
+
+#Maximum sum of subarray of size k
+arr4 = [2,1,5,1,3,2]
+k = 3
+def max_sum_subarray(arr, k):
+    window_sum =  sum(arr[:k])
+    max_sum = window_sum
+
+    for i in range(k,len(arr)):
+        window_sum += arr[i]-arr[i-k]
+        max_sum = max(max_sum, window_sum)
+
+    return max_sum
+
+print(max_sum_subarray(arr4,k))
+
+
+#Smallest subarray with sum ≥ target
+def min_subarray_length():
+    pass
+
+
+
+"""
+Summary
+Prefix Sum → Efficient for range queries & subarray sums.
+Sliding Window → Efficient for fixed/variable subarray problems.
+"""
